@@ -28,10 +28,16 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
+      # Publish only what the site needs, not tests/, tools/ or package.json.
+      - name: Stage site files
+        run: |
+          mkdir _site
+          cp -R index.html css js data _site/
+
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
 
       - name: Deploy
         id: deployment
