@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Digitas Connect Prototype</title>
+  <meta name="description" content="Clickable prototype of Digitas Connect and Digitas Connect Studio. BUS 365 Digitas case competition, Fall 2026.">
+  <!-- DM Sans and DM Mono are the fonts in Digitas's kickoff deck. Offline, the system fallbacks in styles.css are used. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="rule-gradient" aria-hidden="true"></div>
+    <div class="bar">
+      <a class="wordmark" href="#/connect/1">DIGITAS <span>CONNECT</span></a>
+      <nav class="tabs" aria-label="Platform">
+        <a data-area="connect" href="#/connect/1">Digitas Connect <small>for clients</small></a>
+        <a data-area="studio" href="#/studio/a">Digitas Connect Studio <small>internal</small></a>
+        <a data-area="reference" href="#/database">Behind the scenes</a>
+      </nav>
+      <div class="demo">
+        <label for="scenario" class="sr-only">Demo scenario</label>
+        <select id="scenario" aria-label="Demo scenario"></select>
+        <button id="reset" class="btn ghost small" type="button">Reset</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="app" tabindex="-1"></main>
+
+  <footer>
+    <div>BUS 365 Digitas Case Competition prototype. Elena and James are fictional. Figures are estimates based on stated assumptions; <span class="ph">[placeholder]</span> means a source is still needed.</div>
+    <details>
+      <summary>Scripted or generated?</summary>
+      <p>Everything is scripted from one shared database (<code>data/database.json</code>). No language model is used. Leads and referrals are saved only in this browser.</p>
+    </details>
+  </footer>
+
+  <script src="js/db.js"></script>
+  <script src="js/calc.js"></script>
+  <script src="js/star.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

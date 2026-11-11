@@ -1,0 +1,6 @@
+row,type,formula,specialistOnly,digitasConnected,source
+Agency management,cost,partners x hours per month x 12 x hourly cost,"{""hoursPerMonth"":15}","{""hoursPerMonth"":15}",[placeholder] agency-management research
+Duplicated work,cost,% of fees repeated x total fees,"{""pct"":0.06}","{""pct"":0.02}",[placeholder] industry survey
+Disconnected goals,upside,% of spend misallocated x spend,"{""pct"":0.03}","{""pct"":0.01}",[placeholder] industry survey
+Report reconciliation,cost,hours per month x 12 x hourly cost,"{""hoursPerMonth"":40}","{""hoursPerMonth"":10}",[placeholder] industry survey
+Time lag,upside,days of delay x campaigns x revenue per day,"{""days"":8}","{""days"":3}",[placeholder] handoff and launch-speed research

@@ -1,0 +1,11 @@
+{
+  "name": "digitas-connect-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Clickable prototype of Digitas Connect and Digitas Connect Studio for the BUS 365 Digitas case competition. No dependencies.",
+  "scripts": {
+    "build": "node tools/build-db.js",
+    "test": "node --test tests/calc.test.js tests/smoke.test.js",
+    "check": "npm run build && npm test"
+  }
+}

@@ -1,0 +1,11 @@
+problem,points,line,sentence,status
+retention,data; cx; creative; strategy,data-cx,Behavior data decides who gets which retention message.,"draft, confirm with Digitas case work"
+retention,data; cx; creative; strategy,creative-cx,Creative makes each retention message worth opening.,"draft, confirm with Digitas case work"
+retention,data; cx; creative; strategy,strategy-cx,Strategy sets which moments in the customer journey deserve a message.,"draft, confirm with Digitas case work"
+performance,media; data; creative,media-data,Performance data tells media where the next dollar should go.,"draft, confirm with Digitas case work"
+performance,media; data; creative,creative-media,Media results show which creative to make more of.,"draft, confirm with Digitas case work"
+performance,media; data; creative,creative-data,Data shows which creative ideas work for which audiences.,"draft, confirm with Digitas case work"
+launch,strategy; creative; media; cx,strategy-creative,Strategy gives the launch one idea for creative to express.,"draft, confirm with Digitas case work"
+launch,strategy; creative; media; cx,creative-media,Creative is built for the places where media will run it.,"draft, confirm with Digitas case work"
+launch,strategy; creative; media; cx,media-cx,First-time buyers from the launch get a follow-up message waiting.,"draft, confirm with Digitas case work"
+other,strategy; creative; media; data; cx,,,"prototype default: not in the Build Brief. All five points shown, no lines lit, prompts a strategist conversation."
