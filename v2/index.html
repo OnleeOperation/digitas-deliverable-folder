@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Digitas Connect v2</title>
+  <meta name="description" content="Digitas Connect v2 draft: client inputs, a Monte Carlo estimate of coordination savings, an interactive star, and Digitas Connect Studio as the private side. BUS 365 Digitas case competition, Fall 2026.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23000'/%3E%3Cpath d='M16 5l3.1 8.5H28l-7.2 5.2 2.8 8.8L16 22.3l-7.6 5.2 2.8-8.8L4 13.5h8.9z' fill='%23ff7911'/%3E%3C/svg%3E">
+  <!-- DM Sans and DM Mono are the fonts in Digitas's own deck. Offline, the fallbacks in v2.css are used. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Newsreader:opsz,wght@6..72,300;6..72,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/v2.css?v=31">
+</head>
+<body>
+  <header class="top">
+    <div class="rule-gradient" aria-hidden="true"></div>
+    <div class="bar">
+      <a class="wordmark" href="#/connect/1"><b>DIGITAS</b> <span>Connect</span> <em>v2 draft</em></a>
+      <nav class="tabs" aria-label="Platform">
+        <a data-area="connect" href="#/connect/1" title="Public: on digitas.com, for prospective clients">Connect</a>
+        <a data-area="studio" href="#/studio/a" title="Private: Digitas only">Studio</a>
+        <a data-area="reference" href="#/model" title="For the team: the model and open decisions">Behind the scenes</a>
+      </nav>
+      <div class="demo">
+        <label for="preset" class="sr-only">Load an example</label>
+        <select id="preset" aria-label="Load an example"></select>
+        <button id="reset" class="btn ghost small" type="button">Reset</button>
+        <a class="v1" href="../index.html" title="The original prototype, unchanged">v1</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="app" tabindex="-1"></main>
+
+  <footer>
+    <div>BUS 365 · Digitas case competition prototype. Estimates come from industry research and averages, not Digitas or client data. Elena and James are fictional.</div>
+    <details>
+      <summary>Scripted or generated?</summary>
+      <p>No AI runs here. Every assumption lives in one file (<code>v2/data/v2-data.js</code>) with its source and status. The 10,000-scenario simulation runs in your browser and is seeded, so the same answers always give the same numbers. Shared reports and logged outcomes stay in this browser.</p>
+    </details>
+  </footer>
+
+  <script src="data/v2-data.js?v=31"></script>
+  <script src="js/model.js?v=31"></script>
+  <script src="js/star.js?v=31"></script>
+  <script src="js/charts.js?v=31"></script>
+  <script src="js/app.js?v=31"></script>
+</body>
+</html>
