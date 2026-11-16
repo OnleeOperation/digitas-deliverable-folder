@@ -234,7 +234,7 @@
     /* Worked examples (top-bar menu). None is the default; they show the tool across sizes, industries and B2C/B2B.
        Elena is the team deck's fictional persona (slide 6). */
     presets: [
-      { id: 'elena', label: 'Consumer brand · Elena, soda (deck persona)', company: 'Elena\'s soda brand', industry: 'cpg', budgetMode: 'revenue', revenue: 250000000, budget: 0,
+      { id: 'elena', label: 'Consumer brand · Elena, soda (deck persona)', company: 'Elena\'s soda brand', industry: 'cpg', budgetMode: 'revenue', revenue: 10000000, budget: 0,
         challenge: 'retention', status: 'using', sharing: 2, needs: ['brand', 'social', 'paid', 'crm', 'loyalty', 'pr'] },
       { id: 'saas', label: 'B2B software company', company: 'Mid-size software company', industry: 'tech', budgetMode: 'revenue', revenue: 400000000, budget: 0,
         challenge: 'leads', status: 'using', sharing: 3, needs: ['brand', 'content', 'search', 'paid', 'leads', 'martech', 'analytics', 'events'] },
@@ -266,8 +266,8 @@
         alt: 'Deck slide 7 still describes James as a leader at another Publicis Groupe agency. Update the slide or the persona.' },
       { q: 'Industry inputs', v2: '13 industries plus "Other / general". Industry changes suggested needs, hourly cost and the KPIs shown per group. Optional "your own numbers" replace averages for any company.',
         alt: 'Ask 5 industry-specific numbers per industry (e.g. hotel: average stay, nightly rate). More precise, much more to source.' },
-      { q: 'How is disconnection measured?', v2: 'Fragmentation = the chance two pieces of work sit with different agencies (1 − Σ share²). Equal agencies give (k−1)/k; one large Digitas team plus a small specialist counts as nearly connected. Elena: about $647K a year.',
-        alt: 'Count agencies only, (n−1)/n, which treats a small leftover specialist like an equal partner (Elena: about $446K).' },
+      { q: 'How is disconnection measured?', v2: 'Fragmentation = the chance two pieces of work sit with different agencies (1 − Σ share²). Equal agencies give (k−1)/k; one large Digitas team plus a small specialist counts as nearly connected. Elena: about $48K a year.',
+        alt: 'Count agencies only, (n−1)/n, which treats a small leftover specialist like an equal partner (Elena: about 30% less).' },
       { q: 'Each need = one agency?', v2: 'Yes (Jeffrey, Nov 13). Hours per partner shrink for small budgets so small companies are not overstated.',
         alt: 'Ask who does each need today (in-house / agency / nobody). More accurate, one more question per need.' },
       { q: 'Case results', v2: 'Shown as the team deck states them, tagged "not yet verified". No logos.',

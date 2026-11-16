@@ -27,7 +27,7 @@ test('structure: Elena has 6 needs, Digitas covers 5, so 6 partners become 2', (
   assert.strictEqual(st.nConn, 2);
   assert.strictEqual(st.linesToday, 15);
   assert.strictEqual(st.linesOwned, 10);
-  assert.ok(Math.abs(st.budget - 250000000 * 0.077) < 1);
+  assert.ok(Math.abs(st.budget - 10000000 * 0.077) < 1);
 });
 
 test('honesty: one need, or one covered need, means no savings', () => {
@@ -57,8 +57,8 @@ test('range: low < median < high, savings below today\'s cost, year one below a 
   assert.ok(r.savings.lo < r.savings.p50 && r.savings.p50 < r.savings.hi);
   assert.ok(r.savings.hi < r.today.hi);
   assert.ok(r.year1.p50 < r.savings.p50);
-  // Sanity band for the demo: savings a small share of a ~$19M budget.
-  assert.ok(r.savings.p50 / r.structure.budget > 0.005 && r.savings.p50 / r.structure.budget < 0.06);
+  // Sanity band for the demo: savings a small share of a ~$770K budget.
+  assert.ok(r.savings.p50 / r.structure.budget > 0.005 && r.savings.p50 / r.structure.budget < 0.1);
 });
 
 test('attribution: the star points and lines add up to the headline savings', () => {
@@ -124,9 +124,9 @@ test('own numbers replace averages and narrow the range', () => {
 
 test('own marketing share of revenue replaces 7.7%', () => {
   const a = elena(); a.mktShare = 0.12;
-  assert.ok(Math.abs(M.budgetOf(a, D) - 250000000 * 0.12) < 1);
+  assert.ok(Math.abs(M.budgetOf(a, D) - 10000000 * 0.12) < 1);
   const b = elena(); b.mktShare = null;
-  assert.ok(Math.abs(M.budgetOf(b, D) - 250000000 * 0.077) < 1);
+  assert.ok(Math.abs(M.budgetOf(b, D) - 10000000 * 0.077) < 1);
 });
 
 test('small budgets scale hours per partner down', () => {
