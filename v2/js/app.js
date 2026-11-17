@@ -156,12 +156,6 @@
     hits.sort(function (a, b) { return (b.challenges.indexOf(chId) !== -1) - (a.challenges.indexOf(chId) !== -1); });
     return hits;
   }
-  /* Case card in the digitas.com work-card style: client eyebrow, result as the title, source, capability tags. */
-  function caseCard(c) {
-    return '<article class="card"><p class="eyebrow">' + esc(c.client) + '</p><h3 class="card-t">' + esc(c.result) + '</h3>' +
-      '<p class="card-d">' + esc(c.source) + '</p>' +
-      '<div class="chips">' + c.points.map(function (p) { return '<span class="chip">' + esc(PT[p].name) + '</span>'; }).join('') + '<span class="chip flag">To be verified</span></div></article>';
-  }
   function nav(back, next, label, disabled, why) {
     return '<div class="actions">' + (back ? '<a class="btn ghost" href="' + back + '">Back</a>' : '') +
       (next ? '<a class="btn" href="' + next + '"' + (disabled ? ' aria-disabled="true" tabindex="-1"' : '') + '>' + label + '</a>' : '') +
@@ -295,7 +289,6 @@
     var notes = '';
     if (st.c < 2) notes += '<div class="banner" role="status">Digitas covers ' + (st.c ? 'only one' : 'none') + ' of the services you selected, so there is nothing to connect and no saving to show. A specialist agency may be the better choice, and we would rather tell you so.</div>';
     else if (st.k > 2 && perPartner < 250000) notes += '<div class="banner info" role="status">With about ' + money(perPartner) + ' per agency, many companies your size use fewer agencies than services. Treat this estimate as an upper limit.</div>';
-    var cs = casesFor(D.points.filter(function (p) { return st.perPoint[p.id].length; }).map(function (p) { return p.id; }), ch.id).slice(0, 3);
     var specialists = st.u ? ' Your ' + (st.u === 1 ? 'specialist' : 'specialists') + ' for ' + esc(st.uncovered.map(function (n) { return n.label; }).join(' and ')) + ' stay' + (st.u === 1 ? 's' : '') + ' in place.' : '';
 
     var kpis = none
@@ -332,7 +325,7 @@
           '<div class="bars-total"><span>Total</span><span><b>' + money(r.savings.p50) + '</b> of ' + money(r.today.p50) + '</span></div></div>') +
         '</div>') +
       '<div class="band">' + section('How Digitas connects your work', 'Select a point or line', '<div id="starzone">' + starZone(r, ch, true) + '</div>') +
-      (cs.length ? section('Related work', 'Results as reported by Digitas', '<div class="cards">' + cs.map(caseCard).join('') + '</div>') : '') + '</div>' +
+      '</div>' +
       '<section class="band yellow cta2"><div class="ph-grid"><h2>Get a sharper estimate.</h2><div class="lede"><p>Share this report with Digitas. A strategist refines it with your own figures before you meet.</p>' +
       '<a class="btn" href="#/connect/5">Share with Digitas</a></div></div></section>' +
       '<div class="band tail">' + howWeCalculated(r) + '<div class="actions"><a class="btn ghost" href="#/connect/3">Back</a></div></div>';
@@ -365,7 +358,6 @@
     var back = '<button class="linkbtn" type="button" data-sel="">← Back to overview</button>';
     if (sel.indexOf('point:') === 0) {
       var p = PT[sel.slice(6)], ap = A.points[p.id], mine = st.perPoint[p.id];
-      var cs = casesFor([p.id], ch.id)[0];
       return back + '<p class="label kick">Digitas capability</p><h2>' + esc(p.name) + '</h2><p class="muted">' + esc(p.does) + '</p>' +
         (mine.length
           ? '<div class="chips">' + mine.map(function (n) { return '<span class="chip on">' + esc(n.label) + '</span>'; }).join('') + '</div>' +
@@ -373,21 +365,18 @@
             '<p class="hint">' + (mine.length > 1 ? 'These ' + mine.length + ' services would otherwise mean ' + mine.length + ' separate agencies.' : 'One fewer agency to brief, manage and review.') + '</p>'
           : '<p class="banner info">None of your services fall here yet. <a href="#/connect/2">Add one</a> to connect it.</p>') +
         '<dl class="kv tight"><div><dt>Result it moves for you</dt><dd>' + esc(ind.pivots[p.id]) + '</dd></div></dl>' +
-        '<p class="label" style="margin-top:1.1rem">What this team does</p><div class="chips">' + p.subs.map(function (s) { return '<span class="chip">' + esc(s) + '</span>'; }).join('') + '</div>' +
-        (cs ? '<p class="fine">Related work: <b>' + esc(cs.client) + '</b>, ' + esc(cs.result) + '.</p>' : '');
+        '<p class="label" style="margin-top:1.1rem">What this team does</p><div class="chips">' + p.subs.map(function (s) { return '<span class="chip">' + esc(s) + '</span>'; }).join('') + '</div>';
     }
     if (sel.indexOf('line:') === 0) {
       var key = sel.slice(5), l = lineOf(key), al = A.lines[key], owned = st.perPoint[l.a].length && st.perPoint[l.b].length;
       var isKey = ch.lines.some(function (pr) { return Star.lineKey(pr[0], pr[1]) === key; });
-      var cl = casesFor([l.a, l.b], ch.id).filter(function (c) { return c.points.indexOf(l.a) !== -1 && c.points.indexOf(l.b) !== -1; })[0];
       return back + '<p class="label kick">Connection' + (isKey ? ' · key for your goal' : '') + '</p><h2>' + esc(lineName(l)) + '</h2>' +
         '<p>' + esc(l.text) + '</p>' +
         (owned
           ? compare(al.separately, al.connected, al.savings) +
             '<p class="hint">Separately, two agencies have to align goals, data and measurement across this handoff. Connected, one team works from one brief and one dataset.</p>'
           : '<p class="banner info">Not in your plan: you have no services in ' + esc(!st.perPoint[l.a].length ? PT[l.a].name : PT[l.b].name) + '.</p>') +
-        '<dl class="kv tight"><div><dt>Results it moves</dt><dd>' + esc(ind.pivots[l.a]) + '<br>' + esc(ind.pivots[l.b]) + '</dd></div></dl>' +
-        (cl ? '<p class="fine">Related work: <b>' + esc(cl.client) + '</b>, ' + esc(cl.result) + '.</p>' : '');
+        '<dl class="kv tight"><div><dt>Results it moves</dt><dd>' + esc(ind.pivots[l.a]) + '<br>' + esc(ind.pivots[l.b]) + '</dd></div></dl>';
     }
     var ownedN = 0, possible = 0;
     D.lines.forEach(function (x) { if (st.perPoint[x.a].length && st.perPoint[x.b].length) ownedN++; });
