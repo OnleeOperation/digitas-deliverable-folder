@@ -130,8 +130,8 @@
       { id: 'mgmtWeekly', label: 'Weekly hours spent managing each agency', unit: 'hours', param: 'mgmtHours', toParam: 52, placeholder: 'e.g. 6',
         hint: 'Briefs, status calls, approvals, invoices. We assume 3–10.' },
       { id: 'hourly', label: 'Hourly cost of your marketing team', unit: 'usd', placeholder: 'e.g. 75',
-        hint: 'Salary plus benefits, per hour. We assume about $59–$68 before the industry factor.' },
-      { id: 'tenure', cite: 'Industry estimate, source being confirmed', label: 'Years between agency reviews', unit: 'years', param: 'tenure', toParam: 1, placeholder: 'e.g. 5',
+        hint: 'Salary plus benefits, per hour. We assume about $45 (BLS average) before the industry factor.' },
+      { id: 'tenure', cite: 'Team estimate (ANA / 4As 2025: about 7.3-year average tenure)', label: 'Years between agency reviews', unit: 'years', param: 'tenure', toParam: 1, placeholder: 'e.g. 5',
         hint: 'How often you re-pitch an agency. We assume 3–7 years.' }
     ],
 
@@ -154,15 +154,15 @@
        scenarios (Digitas pricing is not public), so the model compares only the cost of coordinating partners. */
     /* label = team deck name (Behind the scenes); plain + explain = what a client reads. */
     categories: [
-      { id: 'admin', label: 'Administration fees', plain: 'Managing agencies', explain: 'Briefs, status calls, approvals, invoices and periodic agency reviews.',
+      { id: 'admin', label: 'Administration fees', plain: 'Administration fees', explain: 'Briefs, status calls, approvals, invoices and periodic agency reviews.',
         kind: 'partner', formula: 'partners x (agency review cost x size / tenure + management hours x hourly cost)' },
-      { id: 'lag', label: 'Time lag', plain: 'Waiting on handoffs', explain: 'Time lost while work passes from one agency to the next.',
+      { id: 'lag', label: 'Time lag', plain: 'Time lag', explain: 'Time lost while work passes from one agency to the next.',
         kind: 'partner', formula: 'partners x hours lost to handoffs x hourly cost' },
-      { id: 'goals', label: 'Disconnected goals', plain: 'Misaligned goals', explain: 'Spend optimized for each agency\'s own targets instead of yours.',
+      { id: 'goals', label: 'Disconnected goals', plain: 'Disconnected goals', explain: 'Spend optimized for each agency\'s own targets instead of yours.',
         kind: 'line', formula: 'budget x share lost to misaligned goals x sharing x fragmentation' },
-      { id: 'data', label: 'Data disconnection', plain: 'Siloed data', explain: 'Budget wasted because agencies cannot see each other\'s customer data.',
+      { id: 'data', label: 'Data disconnection', plain: 'Data disconnection', explain: 'Budget wasted because agencies cannot see each other\'s customer data.',
         kind: 'line', formula: 'budget x share lost to siloed data x sharing x fragmentation' },
-      { id: 'meas', label: 'Inconsistent measurement', plain: 'Conflicting measurement', explain: 'Budget misallocated when every agency reports results its own way.',
+      { id: 'meas', label: 'Inconsistent measurement', plain: 'Inconsistent measurement', explain: 'Budget misallocated when every agency reports results its own way.',
         kind: 'line', formula: 'budget x share misallocated by measurement doubts x sharing x fragmentation' },
       { id: 'dup', label: 'Duplicated work', plain: 'Duplicated work', explain: 'The same research, assets and reports produced more than once.',
         kind: 'partner', formula: '(partners - 1) x duplicated hours x hourly cost' }
@@ -171,13 +171,13 @@
     /* The simulated variables. tri = triangular(min, mode, max). Every one is shown on screen with its source and status. */
     params: [
       { id: 'reviewCost', cite: 'ANA & 4As, The Cost of the Pitch (2023)', label: 'Cost of one agency review', unit: 'usd', tri: [250000, 408000, 550000], status: 'sourced',
-        source: 'ANA / 4As, The Cost of the Pitch (2023): $408K per review (team appendix). Range is a team estimate.' },
+        source: 'ANA / 4As, The Cost of the Pitch (2023): $408K per review. Range is a team estimate.' },
       { id: 'tenure', label: 'Years between agency reviews', unit: 'years', tri: [3, 4.5, 7], status: 'placeholder',
-        source: 'Agency tenure: Aliyah\'s source to be added.' },
+        source: 'Team estimate. ANA / 4As (2025) put average client–agency tenure at about 7.3 years; the range allows for earlier reviews.' },
       { id: 'mgmtHours', cite: 'Estimate from typical agency workflows (3–10 hours a week)', label: 'Hours to manage one partner a year', unit: 'hours', tri: [150, 300, 500], status: 'team',
         source: 'Team estimate: briefs, status calls, approvals, invoices (about 3-10 hours a week).' },
       { id: 'lagHours', cite: 'PPC Land (2026): about 72 hours a year per agency', label: 'Hours lost to handoffs per partner', unit: 'hours', tri: [40, 72, 120], status: 'sourced',
-        source: 'PPC Land (2026) via team deck: 720 hours across 10 agencies = 72 per partner. Knak (2026): 85% missed a launch date.' },
+        source: 'PPC Land (2026): 720 hours across 10 agencies = 72 per partner. Knak (2026): 85% missed a launch date.' },
       { id: 'goalsWaste', cite: 'Digiday (2019), applied as a share of budget', label: 'Budget lost to misaligned goals', unit: 'pct', tri: [0.01, 0.025, 0.05], status: 'team',
         source: 'Digiday (2019): 40% say agency interests are not aligned with theirs. Share of budget is a team estimate.' },
       { id: 'dataWaste', cite: 'StackAdapt (2026), applied as a share of budget', label: 'Budget lost to siloed data', unit: 'pct', tri: [0.01, 0.02, 0.04], status: 'team',
@@ -185,17 +185,15 @@
       { id: 'measWaste', cite: 'EMARKETER / TransUnion (2025), applied as a share of budget', label: 'Budget misallocated by measurement doubts', unit: 'pct', tri: [0.005, 0.015, 0.03], status: 'team',
         source: 'EMARKETER / TransUnion (2025): 29% had up to 20% of budget at risk from measurement doubts. Share is a team estimate.' },
       { id: 'dupHours', cite: 'Asana, Anatomy of Work (2021)', label: 'Duplicated hours per extra partner', unit: 'hours', tri: [150, 308, 450], status: 'sourced',
-        source: 'Asana, Anatomy of Work (2021): 308 hours per worker a year on duplicated work (team deck).' },
-      { id: 'loaded', cite: 'U.S. BLS, Employer Costs for Employee Compensation', label: 'Benefits on top of wages', unit: 'x', tri: [1.3, 1.43, 1.5], status: 'placeholder',
-        source: 'BLS Employer Costs for Employee Compensation: benefits are about 30% of total compensation. Verify.' },
+        source: 'Asana, Anatomy of Work (2021): 308 hours per worker a year on duplicated work.' },
       { id: 'reduction', cite: 'Estimate, to be calibrated with Digitas client outcomes', label: 'Share of coordination cost Digitas removes', unit: 'pct', tri: [0.3, 0.6, 0.9], status: 'team',
-        source: 'Team deck used a flat 90%. Here 90% is the best case and 60% the most likely. Calibrate with Digitas outcomes (Studio).' },
+        source: 'Best case 90%, most likely 60%, worst case 30%. To be calibrated with Digitas client outcomes in Studio.' },
       { id: 'ramp', cite: 'Estimate of onboarding time', label: 'Share realized in year one', unit: 'pct', tri: [0.4, 0.7, 1.0], status: 'team',
         source: 'Team estimate: onboarding takes part of the first year.' }
     ],
 
     fixed: {
-      hourlyWage: { value: 45.38, source: 'U.S. Bureau of Labor Statistics (2025), average hourly earnings (team deck slide 21)', status: 'sourced' },
+      hourlyWage: { value: 45.38, source: 'U.S. Bureau of Labor Statistics (2025): private-industry compensation costs averaged $45.38 per hour worked, wages and benefits included', status: 'sourced' },
       reviewReferenceBudget: { value: 100000000, min: 0.01, max: 1.5, note: 'The $408K review cost reflects large US advertisers; it is scaled by budget ÷ $100M (1%–150%) for other sizes (team assumption).', status: 'team' },
       /* Smaller accounts need less managing. Hours per partner are scaled by (budget per partner ÷ $2M), between 25% and 100%. */
       hoursReferencePerPartner: { value: 2000000, min: 0.25, note: 'Hours spent per partner shrink for small accounts: scaled by budget per partner ÷ $2M (25%–100%). Team estimate, to verify.', status: 'placeholder' },
@@ -234,8 +232,9 @@
     /* Worked examples (top-bar menu). None is the default; they show the tool across sizes, industries and B2C/B2B.
        Elena is the team deck's fictional persona (slide 6). */
     presets: [
-      { id: 'elena', label: 'Consumer brand · Elena, soda (deck persona)', company: 'Elena\'s soda brand', industry: 'cpg', budgetMode: 'revenue', revenue: 10000000, budget: 0,
-        challenge: 'retention', status: 'using', sharing: 2, needs: ['brand', 'social', 'paid', 'crm', 'loyalty', 'pr'] },
+      { id: 'elena', label: 'Consumer brand · Elena, soda (deck persona)', company: 'Elena\'s soda brand', industry: 'cpg', budgetMode: 'budget', revenue: 0, budget: 10000000,
+        challenge: 'retention', status: 'using', sharing: 2,
+        needs: ['brand', 'content', 'paid', 'search', 'analytics', 'social', 'creators', 'crm', 'loyalty', 'pr'] },
       { id: 'saas', label: 'B2B software company', company: 'Mid-size software company', industry: 'tech', budgetMode: 'revenue', revenue: 400000000, budget: 0,
         challenge: 'leads', status: 'using', sharing: 3, needs: ['brand', 'content', 'search', 'paid', 'leads', 'martech', 'analytics', 'events'] },
       { id: 'bank', label: 'Regional bank (large budget)', company: 'Regional bank', industry: 'finance', budgetMode: 'budget', revenue: 0, budget: 60000000,
@@ -266,7 +265,7 @@
         alt: 'Deck slide 7 still describes James as a leader at another Publicis Groupe agency. Update the slide or the persona.' },
       { q: 'Industry inputs', v2: '13 industries plus "Other / general". Industry changes suggested needs, hourly cost and the KPIs shown per group. Optional "your own numbers" replace averages for any company.',
         alt: 'Ask 5 industry-specific numbers per industry (e.g. hotel: average stay, nightly rate). More precise, much more to source.' },
-      { q: 'How is disconnection measured?', v2: 'Fragmentation = the chance two pieces of work sit with different agencies (1 − Σ share²). Equal agencies give (k−1)/k; one large Digitas team plus a small specialist counts as nearly connected. Elena: about $48K a year.',
+      { q: 'How is disconnection measured?', v2: 'Fragmentation = the chance two pieces of work sit with different agencies (1 − Σ share²). Equal agencies give (k−1)/k; one large Digitas team plus a small specialist counts as nearly connected. Elena: about $480K a year.',
         alt: 'Count agencies only, (n−1)/n, which treats a small leftover specialist like an equal partner (Elena: about 30% less).' },
       { q: 'Each need = one agency?', v2: 'Yes (Jeffrey, Nov 13). Hours per partner shrink for small budgets so small companies are not overstated.',
         alt: 'Ask who does each need today (in-house / agency / nobody). More accurate, one more question per need.' },

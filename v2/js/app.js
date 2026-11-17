@@ -147,7 +147,7 @@
       (o.lede ? '<div class="lede">' + o.lede + '</div>' : '') + '</div></header>';
   }
   var VIEW_CLIENT = null; // the public side reads like a website, without a viewer label
-  var VIEW_STUDIO = 'Private · Digitas only · James, Digitas client lead <b>(persona to confirm)</b>';
+  var VIEW_STUDIO = 'Private · Digitas only · James, senior leader at Digitas';
 
   /* ---------- shared pieces ---------- */
   function coveredMap(st) { var m = {}; D.points.forEach(function (p) { m[p.id] = st.perPoint[p.id].length; }); return m; }

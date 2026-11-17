@@ -5,7 +5,9 @@ const assert = require('node:assert');
 const D = require('../data/v2-data.js');
 const M = require('../js/model.js');
 
-const elena = () => JSON.parse(JSON.stringify(D.presets.find((p) => p.id === 'elena')));
+// Fixed fixture for the model tests (independent of the demo preset, which can change with the deck).
+const elena = () => ({ company: 'Fixture soda brand', industry: 'cpg', budgetMode: 'revenue', revenue: 10000000, budget: 0,
+  challenge: 'retention', status: 'using', sharing: 2, needs: ['brand', 'social', 'paid', 'crm', 'loyalty', 'pr'], own: {}, mktShare: null });
 const fast = { n: 3000 };
 
 test('data integrity: every need maps to a known group or to a specialist', () => {
@@ -151,4 +153,16 @@ test('fragmentation: equal agencies give (k-1)/k; a big Digitas team plus one sp
   const none = elena(); none.needs = ['crm', 'pr', 'local'];
   const s2 = M.structure(none, D);
   assert.ok(Math.abs(s2.fragConn - s2.fragToday) < 1e-9, 'one covered need changes nothing');
+});
+
+test('demo preset: Elena matches the deck (10 agencies, $10M marketing budget, Total Commerce not used)', () => {
+  const p = Object.assign({}, D.blankInputs, D.presets.find((x) => x.id === 'elena'));
+  const st = M.structure(p, D);
+  assert.strictEqual(st.budget, 10000000);
+  assert.strictEqual(st.k, 10);
+  assert.strictEqual(st.c, 9);
+  assert.strictEqual(st.nConn, 2);
+  assert.strictEqual(st.perPoint.commerce.length, 0);
+  const r = M.simulate(p, D, fast);
+  assert.ok(r.savings.p50 < r.today.p50 && r.today.p50 < st.budget * 0.2);
 });

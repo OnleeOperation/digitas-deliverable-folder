@@ -100,7 +100,7 @@
 
   /* ---------- the six categories ---------- */
   /* ctx: { budget, sharingMult, wage, size, hoursScale, ownHourly, mgmtOwn } */
-  function rateOf(p, ctx) { return ctx.ownHourly || ctx.wage * p.loaded; }
+  function rateOf(p, ctx) { return ctx.ownHourly || ctx.wage; } /* BLS $45.38 is total compensation: benefits are already included */
   function mgmtOf(p, ctx) { return p.mgmtHours * (ctx.mgmtOwn ? 1 : (ctx.hoursScale || 1)); }
   function categoryCost(id, n, p, ctx, frag) {
     if (frag === undefined) frag = n > 1 ? (n - 1) / n : 0;
